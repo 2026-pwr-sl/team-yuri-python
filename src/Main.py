@@ -10,14 +10,6 @@ people = [
     TeamMembers("Urban Porocnik", 4)
 ]
 
-def teamMembers():
-    count = 0
-    for person in people:
-        count = count + 1
-
-    print("There's currently " + str(count) + " people in the team")
-    return count
-
 def greet(name):
     print("Hello " + str(name) + ", Welcome!")
 
@@ -33,7 +25,6 @@ def displayTeam(people):
 
 
 if __name__=='__main__':
-    teamMembers()
     displayTeam(people)
 
 
