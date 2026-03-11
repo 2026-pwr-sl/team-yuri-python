@@ -1,6 +1,3 @@
-
-
-
 class TeamMembers:
     def __init__(self, name, id):
         self.name = name
@@ -8,7 +5,7 @@ class TeamMembers:
 
 people = [
     TeamMembers("Berke Mamal", 1),
-    TeamMembers("Martin Kaan Kulga", 2),
+    TeamMembers("Metin Kaan Kulga", 2),
     TeamMembers("Elif Karakas", 3),
     TeamMembers("Urban Porocnik", 4)
 ]
