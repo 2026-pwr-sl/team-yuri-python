@@ -15,27 +15,26 @@ def teamMembers():
     for person in people:
         count = count + 1
 
-    print("Theres currently " + str(count) + " people in the team")
+    print("There's currently " + str(count) + " people in the team")
     return count
-def greeting(name):
+
+def greet(name):
     print("Hello " + str(name) + ", Welcome!")
 
 def displayTeam(people):
     print("TEAM: TEAM yuri")
     print("=====================")
     print("Members:")
-    for i,  person in enumerate(people, start = 1):
-
-        print(str(i) + "." + person.name)
+    for i, person in enumerate(people, start = 1):
+        print("    "+str(i) + ") " + person.name)
 
     print("=====================")
     print("Total Members: " + str(len(people)))
 
 
-
-teamMembers()
-greeting("Person")
-displayTeam(people)
+if __name__=='__main__':
+    teamMembers()
+    displayTeam(people)
 
 
 
