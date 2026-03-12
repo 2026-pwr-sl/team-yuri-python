@@ -15,6 +15,9 @@ people = [
 def greet(name):
     print(f"Hello {name}, Welcome!")
 
+def member_greeting(team_name):
+    return f"Hello from {team_name}! Welcome!"
+
 
 def count_members(people):
     return len(people)
@@ -31,5 +34,8 @@ def display_team(people):
 
 
 if __name__ == '__main__':
+    team_name = "Team Yuri" 
     greet("Team Yuri")
     display_team(people)
+    print(member_greeting(team_name))
+
