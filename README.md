@@ -1,12 +1,27 @@
-# team-yuri-python
-```
-group no: 1
-group name: team yuri
-team members: Kaan, Elif, Berke, Urban
+# Getting Started with Teamwork: Python + GitHub
 
-about this project:
-> no idea
+## Group
+Group 1 - Team Yuri
 
-how to run:
-> no Idea
-```
+## Team Members
+- Berke Mamal
+- Metin Kaan Kulga
+- Elif Karakas
+- Urban Porocnik
+
+## Project Goal
+The goal of this project is to learn the basics of teamwork with GitHub and create a simple Python program in a shared repository.
+
+## Project Structure
+- `src/` – source code
+- `tests/` – tests
+- `docs/` – notes and documentation
+- `data/` – optional input data
+
+## How to Run
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/2026-pwr-sl/team-yuri-python.git && \
+   cd team-yuri-python && \
+   python3 src/Main.py
+   ```
