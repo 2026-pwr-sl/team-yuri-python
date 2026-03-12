@@ -4,6 +4,8 @@ class TeamMember:
         self.student_id = student_id
 
 
+team_name = "Team Yuri"
+
 people = [
     TeamMember("Berke Mamal", 1),
     TeamMember("Metin Kaan Kulga", 2),
@@ -28,13 +30,12 @@ def display_team(people):
     print("=====================")
     print("Members:")
     for i, person in enumerate(people, start=1):
-        print(f"    {i}) {person.name}")
+        print("    {}) {}".format(i, person.name))
     print("=====================")
     print(f"Total Members: {count_members(people)}")
 
 
 if __name__ == '__main__':
-    team_name = "Team Yuri" 
     greet("Team Yuri")
     display_team(people)
     print(member_greeting(team_name))
