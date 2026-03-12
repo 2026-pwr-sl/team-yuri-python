@@ -19,7 +19,6 @@ The goal of this project is to learn the basics of teamwork with GitHub and crea
 - `data/` – optional input data
 
 ## How to Run
-1. Clone the repository:
    ```bash
    git clone https://github.com/2026-pwr-sl/team-yuri-python.git && \
    cd team-yuri-python && \
