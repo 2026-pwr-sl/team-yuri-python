@@ -14,7 +14,7 @@ def greet(name):
     print("Hello " + str(name) + ", Welcome!")
 
 def displayTeam(people):
-    print("TEAM: TEAM yuri")
+    print("TEAM yuri")
     print("=====================")
     print("Members:")
     for i, person in enumerate(people, start = 1):
