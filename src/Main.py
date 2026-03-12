@@ -1,34 +1,35 @@
-class TeamMembers:
-    def __init__(self, name, id):
+class TeamMember:
+    def __init__(self, name, student_id):
         self.name = name
-        self.id = id
+        self.student_id = student_id
+
 
 people = [
-    TeamMembers("Berke Mamal", 1),
-    TeamMembers("Metin Kaan Kulga", 2),
-    TeamMembers("Elif Karakas", 3),
-    TeamMembers("Urban Porocnik", 4)
+    TeamMember("Berke Mamal", 1),
+    TeamMember("Metin Kaan Kulga", 2),
+    TeamMember("Elif Karakas", 3),
+    TeamMember("Urban Porocnik", 4)
 ]
 
-def greet(name):
-    print("Hello " + str(name) + ", Welcome!")
 
-def displayTeam(people):
+def greet(name):
+    print(f"Hello {name}, Welcome!")
+
+
+def count_members(people):
+    return len(people)
+
+
+def display_team(people):
     print("TEAM yuri")
     print("=====================")
     print("Members:")
-    for i, person in enumerate(people, start = 1):
-        print("    "+str(i) + ") " + person.name)
-
+    for i, person in enumerate(people, start=1):
+        print(f"    {i}) {person.name}")
     print("=====================")
-    print("Total Members: " + str(len(people)))
+    print(f"Total Members: {count_members(people)}")
 
 
-if __name__=='__main__':
-    displayTeam(people)
-
-
-
-
-
-
+if __name__ == '__main__':
+    greet("Team Yuri")
+    display_team(people)
