@@ -18,7 +18,7 @@ The goal of this project is to learn the basics of teamwork with GitHub and crea
 - `docs/` – notes and documentation
 - `data/` – optional input data
 - `README.md` – project information
-- `config/` – configuration files
+- 
 
 ## How to Run
    ```bash
