@@ -1,6 +1,8 @@
 def count_members(people):
     return len(people)
 
+def greet(name):
+    print(f"Hello {name}, Welcome!")
 
 def display_team(people):
     print("TEAM yuri")
