@@ -3,11 +3,6 @@ from utils import *
 
 team_name = "Team Yuri"
 
-
-def greet(name):
-    print(f"Hello {name}, Welcome!")
-
-
 def member_greeting(team_name):
     return f"Hello from {team_name}! Welcome!"
 
