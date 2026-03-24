@@ -1,14 +1,16 @@
 import argparse
-import utils
+
 import team
+import utils
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--show-team", action="store_true")
 parser.add_argument("--count", action="store_true")
 parser.add_argument("--greet")  # gets name
+
 try:
     args = parser.parse_args()
-except:
+except SystemExit:
     print("unrecognized arguments, rtfm (read the FRIENDLY manual)")
     exit(1)
 
@@ -21,7 +23,7 @@ if args.count:
     count = utils.count_members(people)
     print("count:", count)
     quit()
-if not args.greet == None:
+if args.greet is not None:
     print("Hello {}.".format(args.greet))
     quit()
 
