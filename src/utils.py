@@ -25,10 +25,10 @@ def display_team(people):
 def search_member(people, name=None, student_id=None):
     found_something = False
 
-    if (student_id == None) and (name == None):
+    if (student_id is None) and (name is None):
         raise ValueError("At least one of 'name' or 'student_id' must be provided")
 
-    if not student_id == None:
+    if student_id is not None:
         for member in people:
             if student_id == member.student_id:
                 print(
@@ -38,7 +38,7 @@ def search_member(people, name=None, student_id=None):
                 )
                 found_something = True
 
-    if not name == None:
+    if name is not None:
         for member in people:
             if name.lower() == member.name.lower():
                 print(
