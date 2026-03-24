@@ -1,36 +1,37 @@
 import argparse
+import utils
+import team
 
-from team import *
-from utils import *
-
-parser = argparse.ArgumentParser(description="Example program")
+parser = argparse.ArgumentParser()
 parser.add_argument("--show-team", action="store_true")
 parser.add_argument("--count", action="store_true")
 parser.add_argument("--greet")  # gets name
 args = parser.parse_args()
 
+
+people = utils.load_team_data()
+
 if args.show_team:
-    display_team(people)
+    utils.display_team(people)
     quit()
 if args.count:
-    count = count_members(people)
+    count = utils.count_members(people)
     print("count:", count)
     quit()
 if not args.greet == None:
     print("Hello {}.".format(args.greet))
     quit()
 
-    
-team_name = "Team Yuri"
 
-def member_greeting(team_name):
-    return f"Hello from {team_name}! Welcome!"
+team_name = "Team Yuri"  # todo: add this to json
+
+
+def team_greeting(team_name):
+    return "Hello from {}! Welcome!".format(team_name)
 
 
 if __name__ == "__main__":
-    greet("Team Yuri")
-    display_team(people)
-    print(member_greeting(team_name))
-    print_yuri()
-
-
+    utils.greet("Team Yuri")
+    utils.display_team(people)
+    print(team_greeting(team_name))
+    team.print_yuri()
