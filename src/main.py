@@ -10,6 +10,7 @@ try:
     args = parser.parse_args()
 except:
     print("unrecognized arguments, rtfm (read the FRIENDLY manual)")
+    exit(1)
 
 people = utils.load_team_data()
 
