@@ -24,4 +24,33 @@ options = [
 
 display(1, options)
 
-# todo make it choosable
+n = 0
+max_n = len(options) - 1
+
+display(n, options)
+
+while True:
+    # readchar.readkey() waits for a single key press
+    key = readchar.readkey()
+
+    if key == readchar.key.ESC:
+        exit()
+    if key == readchar.key.UP:
+        if n <= 0:
+            n = max_n
+        else:
+            n -= 1
+        display(n, options)
+
+    elif key == readchar.key.DOWN:
+        if n >= max_n:
+            n = 0
+        else:
+            n += 1
+        display(n, options)
+
+    elif key == readchar.key.ENTER:
+        # clear_screen()
+        print("Running: {}...".format(options[n]))
+        os.system(options[n])
+        break
