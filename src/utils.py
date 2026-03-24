@@ -41,6 +41,7 @@ def search_member(people, name=None, student_id=None):
     if not name == None:
         for member in people:
             if name.lower() == member.name.lower():
+                continue
                 print(
                     "exact match: name={} student_id={}".format(
                         member.name, member.student_id
