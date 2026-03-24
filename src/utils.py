@@ -1,5 +1,6 @@
 import json
 import team
+import os
 
 
 def count_members(people):
@@ -46,6 +47,9 @@ def search_member(people, name=None, student_id=None):
 
 
 def load_team_data():
+    if not "team_data.json" in os.listdir('.'):
+        print("team_data.json not found...")
+        exit(2)
     with open("team_data.json", "r") as f:
         team_data = json.loads(f.read())
 
@@ -69,6 +73,10 @@ def write_team_data(people):
     tmp_obj = []
     for member in people:
         tmp_obj.append({"id": member.student_id, "name": member.name})
+
+    if not "team_data.json" in os.listdir('.'):
+        print("team_data.json not found...")
+        exit(2)
 
     with open("team_data.json", "w") as f:
         f.write(json.dumps(tmp_obj, indent=4))
