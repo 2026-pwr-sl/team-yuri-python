@@ -1,15 +1,16 @@
-import pytest
-import sys
-import os
 import json
+import os
+import sys
 import tempfile
 from pathlib import Path
 
-# Add src to path so we can import modules
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+import pytest
 
-import utils
+# Add src to path so we can import modules
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
+
 import team
+import utils
 
 
 @pytest.fixture
@@ -19,7 +20,7 @@ def sample_team_data(tmp_path):
         {"id": "12345", "name": "cartman"},
         {"id": "12346", "name": "kyle"},
         {"id": "12347", "name": "kenny"},
-        {"id": "12348", "name": "stan"}
+        {"id": "12348", "name": "stan"},
     ]
     json_file = tmp_path / "team_data.json"
     json_file.write_text(json.dumps(test_data, indent=4))
