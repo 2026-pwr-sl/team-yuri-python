@@ -26,3 +26,12 @@ The goal of this project is to learn the basics of teamwork with GitHub and crea
    cd team-yuri-python && \
    python3 src/Main.py
    ```
+
+## How to Test
+   ```
+   pip install pytest
+   ```
+then
+   ```
+   pytest
+   ```
