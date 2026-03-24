@@ -8,7 +8,7 @@ def count_members(people):
 
 
 def greet(name):
-    print(f"Hello {name}, Welcome!")
+    print("Hello {}, Welcome!".format(name))
 
 
 def display_team(people):
