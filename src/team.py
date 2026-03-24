@@ -1,7 +1,3 @@
-import utils
-import json
-
-
 class TeamMember:
     def __init__(self, name, student_id):
         self.name = name
