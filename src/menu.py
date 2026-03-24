@@ -1,3 +1,11 @@
+import os
+
+import readchar
+
+
+def clear_screen():
+    os.system("clear")
+
 def display(n=0, options=[]):
     print("choose what to run (up and down):")
     for i in range(len(options)):
