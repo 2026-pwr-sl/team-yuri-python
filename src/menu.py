@@ -4,7 +4,7 @@ import readchar
 
 
 def clear_screen():
-    os.system("clear")
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def display(n=0, options=[]):
     print("choose what to run (up and down):")
