@@ -6,8 +6,10 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--show-team", action="store_true")
 parser.add_argument("--count", action="store_true")
 parser.add_argument("--greet")  # gets name
-args = parser.parse_args()
-
+try:
+    args = parser.parse_args()
+except:
+    print("unrecognized arguments, rtfm (read the FRIENDLY manual)")
 
 people = utils.load_team_data()
 
