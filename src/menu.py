@@ -8,7 +8,7 @@ def display(n=0, options=[]):
 
 
 options = [
-    "python3 main.py --menu",
+    "python3 main.py",
     "python3 main.py --show-team",
     "python3 main.py --count",
     "python3 main.py --greet",
