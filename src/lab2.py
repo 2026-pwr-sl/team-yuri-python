@@ -23,20 +23,20 @@ def ReadLog(lines):
 def ShowLargestResource(data):
     bytes_list = []
     paths = []
-    times = []
+    processing_times = []
 
     for item in data:
         path = item[0]
         bytes_sent = int(item[2])
-        time = int(item[3])
+        processing_time = int(item[3])
 
         paths.append(path)
         bytes_list.append(bytes_sent)
-        times.append(time)
+        processing_times.append(processing_time)
 
     max_bytes = max(bytes_list)
     index = bytes_list.index(max_bytes)
-    print("Largest:", paths[index], times[index])
+    print("Largest resource:", paths[index], processing_times[index], "ms")
 
 
 def CountFailed(data):
@@ -47,7 +47,7 @@ def CountFailed(data):
         if status == "404":
             failed += 1
 
-    print("Failed:", failed)
+    print("Failed requests:", failed)
 
 
 def TotalBytes(data):
@@ -57,25 +57,25 @@ def TotalBytes(data):
         bytes_sent = int(item[2])
         total += bytes_sent
 
-    print("Total bytes:", total)
+    print("Total bytes sent:", total)
     return total
 
 
 def TotalKilobytes(total_bytes):
     kilobytes = total_bytes / 1024
-    print("Total kilobytes:", kilobytes)
+    print("Total kilobytes sent:", kilobytes)
 
 
 def AverageTime(data):
     total_time = 0
 
     for item in data:
-        time = int(item[3])
-        total_time += time
+        processing_time = int(item[3])
+        total_time += processing_time
 
     avg = total_time / len(data)
 
-    print("Average time:", avg)
+    print("Average processing time:", avg, "ms")
 
 
 lines = sys.stdin.readlines()
