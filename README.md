@@ -35,3 +35,9 @@ then
    ```
    pytest
    ```
+
+## Logging resources
+
+- Documentation: https://docs.python.org/3/library/logging.html
+- Tutorial: https://docs.python.org/3/howto/logging.html
+- Cookbook: https://docs.python.org/3/howto/logging-cookbook.html
