@@ -1,4 +1,8 @@
 import sys
+import logging
+
+
+logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
 
 def DisplayLog(data):
@@ -16,8 +20,7 @@ def ReadLog(lines):
     result = []
     for line in lines:
         part = line.strip().split()
-        if len(part) == 4:
-            result.append(part)
+        result.append(part)
     return result
 
 
@@ -79,6 +82,8 @@ def AverageTime(data):
     print("Average processing time:", avg, "ms")
 
 
+logging.info("Start")
+
 lines = sys.stdin.readlines()
 
 data = ReadLog(lines)
@@ -88,3 +93,5 @@ CountFailed(data)
 total = TotalBytes(data)
 TotalKilobytes(total)
 AverageTime(data)
+
+logging.info("Finished")
