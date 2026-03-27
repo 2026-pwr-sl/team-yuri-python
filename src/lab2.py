@@ -58,6 +58,12 @@ def TotalBytes(data):
         total += bytes_sent
 
     print("Total bytes:", total)
+    return total
+
+
+def TotalKilobytes(total_bytes):
+    kilobytes = total_bytes / 1024
+    print("Total kilobytes:", kilobytes)
 
 
 def AverageTime(data):
@@ -78,4 +84,5 @@ data = ReadLog(lines)
 DisplayLog(data)
 ShowLargestResource(data)
 CountFailed(data)
-TotalBytes(data)
+total = TotalBytes(data)
+TotalKilobytes(total)
