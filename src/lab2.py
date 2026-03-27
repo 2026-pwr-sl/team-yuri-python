@@ -43,8 +43,8 @@ def CountFailed(data):
     failed = 0
 
     for item in data:
-        status = int(item[1])
-        if status != 200:
+        status = item[1]
+        if status == "404":
             failed += 1
 
     print("Failed:", failed)
