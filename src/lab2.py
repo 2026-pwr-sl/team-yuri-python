@@ -16,7 +16,8 @@ def ReadLog(lines):
     result = []
     for line in lines:
         part = line.strip().split()
-        result.append(part)
+        if len(part) == 4:
+            result.append(part)
     return result
 
 
