@@ -2,7 +2,14 @@ import sys
 import logging
 
 
-logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+log_level_name = "INFO"
+
+if len(sys.argv) > 1:
+    log_level_name = sys.argv[1].upper()
+
+log_level = getattr(logging, log_level_name, logging.INFO)
+
+logging.basicConfig(level=log_level, format="%(levelname)s: %(message)s")
 
 
 def DisplayLog(data):
@@ -99,6 +106,7 @@ def AverageTime(data):
 
 
 logging.info("Start")
+logging.info("Logging level: %s", log_level_name)
 
 lines = sys.stdin.readlines()
 logging.debug("Read %d raw lines from standard input", len(lines))
