@@ -28,8 +28,13 @@ def ReadLog(lines):
     result = []
     for line in lines:
         part = line.strip().split()
-        result.append(part)
-        logging.debug("Parsed line: %s", part)
+
+        if len(part) == 4:
+            result.append(part)
+            logging.debug("Parsed line: %s", part)
+        else:
+            logging.debug("Skipped line: %s", line.strip())
+
     return result
 
 
