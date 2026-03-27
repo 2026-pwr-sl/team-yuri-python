@@ -1,17 +1,22 @@
 import sys
 
 
-def DisplayLog(lines):
-   
-   for line in lines:
-      print(line.strip())
-   
+def DisplayLog(data):
+    for item in data:
+        path = item[0]
+        status = item[1]
+
+        if status == "404":
+            print("!" + path)
+        else:
+            print(path)
+
 
 def ReadLog(lines):
     result = []
     for line in lines:
-     part = line.strip().split()
-     result.append(part)
+        part = line.strip().split()
+        result.append(part)
     return result
 
 
@@ -21,17 +26,17 @@ def ShowLargestResource(data):
     times = []
 
     for item in data:
-         path = item[0]
-         bytes_sent = int(item[2])
-         time = int(item[3])
+        path = item[0]
+        bytes_sent = int(item[2])
+        time = int(item[3])
 
-         paths.append(path)
-         bytes_list.append(bytes_sent)
-         times.append(time)
+        paths.append(path)
+        bytes_list.append(bytes_sent)
+        times.append(time)
+
     max_bytes = max(bytes_list)
     index = bytes_list.index(max_bytes)
     print("Largest:", paths[index], times[index])
-
 
 
 def CountFailed(data):
@@ -65,11 +70,11 @@ def AverageTime(data):
     avg = total_time / len(data)
 
     print("Average time:", avg)
-   
+
 
 lines = sys.stdin.readlines()
 
-DisplayLog(lines)
 data = ReadLog(lines)
+DisplayLog(data)
 ShowLargestResource(data)
 CountFailed(data)
