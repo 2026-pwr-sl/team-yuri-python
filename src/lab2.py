@@ -6,6 +6,7 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
 
 def DisplayLog(data):
+    logging.debug("Displaying %d log entries", len(data))
     for item in data:
         path = item[0]
         status = item[1]
@@ -21,6 +22,7 @@ def ReadLog(lines):
     for line in lines:
         part = line.strip().split()
         result.append(part)
+        logging.debug("Parsed line: %s", part)
     return result
 
 
@@ -38,8 +40,17 @@ def ShowLargestResource(data):
         bytes_list.append(bytes_sent)
         processing_times.append(processing_time)
 
+        logging.debug(
+            "Largest resource candidate -> path=%s bytes=%d time=%d",
+            path,
+            bytes_sent,
+            processing_time
+        )
+
     max_bytes = max(bytes_list)
     index = bytes_list.index(max_bytes)
+
+    logging.debug("Largest resource index: %d", index)
     print("Largest resource:", paths[index], processing_times[index], "ms")
 
 
@@ -50,6 +61,7 @@ def CountFailed(data):
         status = item[1]
         if status == "404":
             failed += 1
+            logging.debug("Failed request found: %s", item[0])
 
     print("Failed requests:", failed)
 
@@ -60,6 +72,7 @@ def TotalBytes(data):
     for item in data:
         bytes_sent = int(item[2])
         total += bytes_sent
+        logging.debug("Added %d bytes, total now %d", bytes_sent, total)
 
     print("Total bytes sent:", total)
     return total
@@ -67,6 +80,7 @@ def TotalBytes(data):
 
 def TotalKilobytes(total_bytes):
     kilobytes = total_bytes / 1024
+    logging.debug("Converted %d bytes to %f KB", total_bytes, kilobytes)
     print("Total kilobytes sent:", kilobytes)
 
 
@@ -76,15 +90,18 @@ def AverageTime(data):
     for item in data:
         processing_time = int(item[3])
         total_time += processing_time
+        logging.debug("Added %d ms, total time now %d", processing_time, total_time)
 
     avg = total_time / len(data)
 
+    logging.debug("Average processing time: %f", avg)
     print("Average processing time:", avg, "ms")
 
 
 logging.info("Start")
 
 lines = sys.stdin.readlines()
+logging.debug("Read %d raw lines from standard input", len(lines))
 
 data = ReadLog(lines)
 DisplayLog(data)
