@@ -79,7 +79,7 @@ def total_bytes(data):
 
 
 def total_kilobytes(total_bytes):
-    kilobytes = total_bytes / 1000  # 1000 for KB, 1024 for Kib
+    kilobytes = total_bytes / 1000  # 1000 for KB, 1024 for KiB
     logging.debug("Converted %d bytes to %f KB", total_bytes, kilobytes)
     print("Total kilobytes sent:", kilobytes)
 
