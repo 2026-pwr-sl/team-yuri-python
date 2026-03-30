@@ -94,18 +94,18 @@ def average_time(data):
     logging.debug("Average processing time: %f", avg)
     print("Average processing time:", avg, "ms")
 
-
-logging.info("Start")
-logging.info("Logging level: %s", log_level_name)
-
-lines = sys.stdin.readlines()
-logging.debug("Read %d raw lines from standard input", len(lines))
-
-data = read_log(lines)
-display_log(data)
-show_largest_resource(data)
-count_failed(data)
-total_kilobytes(total_bytes(data))
-average_time(data)
-
-logging.info("Finished")
+def run():
+    logging.info("Start")
+    logging.info("Logging level: %s", log_level_name)
+    
+    lines = sys.stdin.readlines()
+    logging.debug("Read %d raw lines from standard input", len(lines))
+    
+    data = read_log(lines)
+    display_log(data)
+    show_largest_resource(data)
+    count_failed(data)
+    total_kilobytes(total_bytes(data))
+    average_time(data)
+    
+    logging.info("Finished")
