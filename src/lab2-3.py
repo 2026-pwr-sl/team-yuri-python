@@ -109,3 +109,6 @@ def run():
     average_time(data)
     
     logging.info("Finished")
+
+if __name__ == "__main__":
+    run()
