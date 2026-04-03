@@ -20,16 +20,27 @@ def display_log(data):
         else:
             print(path)
 
+def read_log():
+    lines = sys.stdin.readlines()
+    logging.debug("Read %d lines from standard input", len(lines))
 
-def read_log(lines):
     result = []
+
     for line in lines:
-        part = line.strip().split()
-        if len(part) == 4:
-            result.append(part)
-            logging.debug("Parsed line: %s", part)
-        else:
-            logging.debug("Skipped line: %s", line.strip())
+        if line.strip() == "":
+            continue
+
+        parts = line.strip().split()
+
+        path = parts[0]
+        status_code = int(parts[1])
+        bytes_sent = int(parts[2])
+        processing_time = int(parts[3])
+
+        entry = (path, status_code, bytes_sent, processing_time)
+        result.append(entry)
+
+    logging.debug("Created %d log entries", len(result))
     return result
 
 
@@ -97,18 +108,19 @@ def average_time(data):
 def run():
     logging.info("Start")
     logging.info("Logging level: %s", log_level_name)
-    
+
     lines = sys.stdin.readlines()
     logging.debug("Read %d raw lines from standard input", len(lines))
-    
+
     data = read_log(lines)
     display_log(data)
     show_largest_resource(data)
     count_failed(data)
     total_kilobytes(total_bytes(data))
     average_time(data)
-    
+
     logging.info("Finished")
+
 
 if __name__ == "__main__":
     run()
