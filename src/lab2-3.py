@@ -109,10 +109,8 @@ def run():
     logging.info("Start")
     logging.info("Logging level: %s", log_level_name)
 
-    lines = sys.stdin.readlines()
-    logging.debug("Read %d raw lines from standard input", len(lines))
+    data = read_log()
 
-    data = read_log(lines)
     display_log(data)
     show_largest_resource(data)
     count_failed(data)
