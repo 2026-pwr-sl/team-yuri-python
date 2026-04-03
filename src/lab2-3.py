@@ -119,29 +119,6 @@ def average_time(data):
     print("Average processing time:", avg, "ms")
 
 
-def run():
-    logging.info("Start")
-    logging.info("Logging level: %s", log_level_name)
-
-    data = read_log()
-
-    display_log(data)
-    show_largest_resource(data)
-    count_failed(data)
-    total_kilobytes(total_bytes(data))
-    average_time(data)
-
-    success_data = successful_reads(data)
-    failed_data = failed_read(data)
-    html_data = html_entries(data)
-    print_html_entries(html_data)
-    logging.debug("Successful entries: %s", success_data)
-    logging.debug("Failed reads: %s", failed_data)
-    logging.debug("HTML entries: %s", html_data)
-
-    logging.info("Finished")
-
-
 def failed_read(data):
     list4xx = []
     list5xx = []
@@ -181,6 +158,29 @@ def print_html_entries(successful_html_entries):
                 )
             )
         )
+
+
+def run():
+    logging.info("Start")
+    logging.info("Logging level: %s", log_level_name)
+
+    data = read_log()
+
+    display_log(data)
+    show_largest_resource(data)
+    count_failed(data)
+    total_kilobytes(total_bytes(data))
+    average_time(data)
+
+    success_data = successful_reads(data)
+    failed_data = failed_read(data)
+    html_data = html_entries(data)
+    print_html_entries(html_data)
+    logging.debug("Successful entries: %s", success_data)
+    logging.debug("Failed reads: %s", failed_data)
+    logging.debug("HTML entries: %s", html_data)
+
+    logging.info("Finished")
 
 
 if __name__ == "__main__":
