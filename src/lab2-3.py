@@ -15,7 +15,7 @@ def display_log(data):
     for item in data:
         path = item[0]
         status = item[1]
-        if status == "404":
+        if status == 404:
             print("!" + path)
         else:
             print(path)
@@ -33,9 +33,9 @@ def read_log():
         parts = line.strip().split()
 
         path = parts[0]
-        status_code = int(parts[1])
-        bytes_sent = int(parts[2])
-        processing_time = int(parts[3])
+        status_code = parts[1]
+        bytes_sent = parts[2]
+        processing_time = parts[3]
 
         entry = (path, status_code, bytes_sent, processing_time)
         result.append(entry)
@@ -50,8 +50,8 @@ def show_largest_resource(data):
     processing_times = []
     for item in data:
         path = item[0]
-        bytes_sent = int(item[2])
-        processing_time = int(item[3])
+        bytes_sent = item[2]
+        processing_time = item[3]
 
         paths.append(path)
         bytes_list.append(bytes_sent)
@@ -73,7 +73,7 @@ def count_failed(data):
     failed = 0
     for item in data:
         status = item[1]
-        if status == "404":
+        if status == 404:
             failed += 1
             logging.debug("Failed request found: %s", item[0])
     print("Failed requests:", failed)
@@ -82,7 +82,7 @@ def count_failed(data):
 def total_bytes(data):
     total = 0
     for item in data:
-        bytes_sent = int(item[2])
+        bytes_sent = item[2]
         total += bytes_sent
         logging.debug("Added %d bytes, total now %d", bytes_sent, total)
     print("Total bytes sent:", total)
