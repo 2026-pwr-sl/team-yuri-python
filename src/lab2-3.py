@@ -33,15 +33,28 @@ def read_log():
         parts = line.strip().split()
 
         path = parts[0]
-        status_code = parts[1]
-        bytes_sent = parts[2]
-        processing_time = parts[3]
+        status_code = int(parts[1])
+        bytes_sent = int(parts[2])
+        processing_time = int(parts[3])
 
         entry = (path, status_code, bytes_sent, processing_time)
         result.append(entry)
 
     logging.debug("Created %d log entries", len(result))
     return result
+
+
+def successful_reads(data):
+    result = []
+
+    for entry in data:
+        status_code = entry[1]
+        if 200 <= status_code < 300:
+            result.append(entry)
+
+    logging.info("Successful reads count: %d", len(result))
+    return result
+
 
 
 def show_largest_resource(data):
@@ -116,6 +129,10 @@ def run():
     count_failed(data)
     total_kilobytes(total_bytes(data))
     average_time(data)
+
+    success_data = successful_reads(data)
+    logging.debug("Successful entries: %s", success_data)
+
 
     logging.info("Finished")
 
