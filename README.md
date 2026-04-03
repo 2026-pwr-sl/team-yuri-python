@@ -58,5 +58,5 @@ then
 Each time it is called, it prints again , leading to duplicated/unnecessary output.
 
 ## Summary:
--Pure functions → can be called as many times as you want
--Functions with side effects (print/log) → may cause issues when called repeatedly
+- Pure functions → can be called as many times as you want
+- Functions with side effects (print/log) → may cause issues when called repeatedly
