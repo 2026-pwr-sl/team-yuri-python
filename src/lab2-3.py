@@ -20,6 +20,7 @@ def display_log(data):
         else:
             print(path)
 
+
 def read_log():
     lines = sys.stdin.readlines()
     logging.debug("Read %d lines from standard input", len(lines))
@@ -54,7 +55,6 @@ def successful_reads(data):
 
     logging.info("Successful reads count: %d", len(result))
     return result
-
 
 
 def show_largest_resource(data):
@@ -118,6 +118,7 @@ def average_time(data):
     logging.debug("Average processing time: %f", avg)
     print("Average processing time:", avg, "ms")
 
+
 def run():
     logging.info("Start")
     logging.info("Logging level: %s", log_level_name)
@@ -132,13 +133,14 @@ def run():
 
     success_data = successful_reads(data)
     failed_data = failed_read(data)
-    html_data = html_entry(data)
+    html_data = html_entries(data)
+    print_html_entries(html_data)
     logging.debug("Successful entries: %s", success_data)
     logging.debug("Failed reads: %s", failed_data)
     logging.debug("HTML entries: %s", html_data)
 
-
     logging.info("Finished")
+
 
 def failed_read(data):
     list4xx = []
@@ -156,7 +158,7 @@ def failed_read(data):
     return list4xx + list5xx
 
 
-def html_entry(data):
+def html_entries(data):
     result = []
 
     for entry in data:
@@ -165,6 +167,20 @@ def html_entry(data):
         if path.endswith(".html") and 200 <= status_code < 300:
             result.append(entry)
     return result
+
+
+def print_html_entries(successful_html_entries):
+    print("successful html enties:")
+    for entry in successful_html_entries:
+        (path, status_code, bytes_sent, processing_time) = entry
+        print(
+            "    "
+            + str(
+                "path: {}, status_code: {}, bytes_sent: {}, processing_time: {}".format(
+                    path, status_code, bytes_sent, processing_time
+                )
+            )
+        )
 
 
 if __name__ == "__main__":
