@@ -60,3 +60,9 @@ Each time it is called, it prints again , leading to duplicated/unnecessary outp
 ## Summary:
 - Pure functions → can be called as many times as you want
 - Functions with side effects (print/log) → may cause issues when called repeatedly
+
+## Exercises 
+### ipaddress
+- https://docs.python.org/3/library/ipaddress.html
+### datetime
+- https://docs.python.org/3/library/datetime.html
