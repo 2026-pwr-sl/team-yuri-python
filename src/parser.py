@@ -1,4 +1,5 @@
 from datetime import datetime
+from log_entry import LogEntry
 
 
 def parse_timestamp(timestamp_str):
@@ -31,3 +32,30 @@ def parse_timestamp(timestamp_str):
     month = month_names[month_str]
 
     return datetime(year, month, day, int(hour), int(minute), int(second))
+
+
+def parse_log_line(line):
+    parts = line.split('"')
+
+    left_part = parts[0].strip()
+    request_part = parts[1].strip()
+    right_part = parts[2].strip()
+
+    left_parts = left_part.split()
+    ip_address = left_parts[0]
+
+    timestamp_str = left_parts[3]
+    timestamp_str = timestamp_str[1:-1]   # remove [
+
+    timestamp = parse_timestamp(timestamp_str)
+
+    request_parts = request_part.split()
+    method = request_parts[0]
+    path = request_parts[1]
+    protocol = request_parts[2]
+
+    right_parts = right_part.split()
+    status_code = int(right_parts[0])
+    bytes_sent = int(right_parts[1])
+
+    return LogEntry(ip_address, timestamp, method, path, protocol, status_code, bytes_sent)
