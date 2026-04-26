@@ -1,0 +1,69 @@
+import os
+
+
+
+def read_log(filename):
+  
+    log_dict = {}
+
+    with open(filename, "r") as file:
+        for line in file:
+            parts = line.split()
+
+            ip = parts[0]
+            request = parts[5] + " " + parts[6] + " " + parts[7]
+            bytes = int(parts[8])
+
+            entry = {"request": request, "status": bytes}
+
+            if ip not in log_dict:
+                log_dict[ip] = []
+
+            log_dict[ip].append(entry)
+
+    return log_dict
+
+
+def ip_request_number(ip_address, data):
+    if ip_address in data:
+        return len(data(ip_address))
+
+        
+def ip_find(data, most_active = True):
+    count = {}
+    for ip in data:
+        count[ip] = len(data[ip])
+
+    if most_active:
+        value = max(count.values())
+    if not most_active:
+        value = min(count.values())
+    
+    result= []
+    for ip in count:
+        if count[ip] == value:
+            result.append(ip)
+    return result
+
+
+    
+
+
+def run():
+    data = read_log("src/lab04_log.txt")
+
+    ip_request_number(192.168, data)
+    
+    MostActiveIP = ip_find(data)
+    LeastActiveIP = ip_find(data, False)
+    print("most active IPs: ")
+    for ip in MostActiveIP:
+        print (ip)
+
+    print("Least active IPs: ")
+    for ip in LeastActiveIP:
+        print (ip)
+
+    print(data)
+
+run()
