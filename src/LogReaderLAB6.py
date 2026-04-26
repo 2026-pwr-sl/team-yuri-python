@@ -33,7 +33,7 @@ def ip_find(data, most_active=True):
 
     if most_active:
         value = max(count.values())
-    if not most_active:
+    else:
         value = min(count.values())
 
     result = []
