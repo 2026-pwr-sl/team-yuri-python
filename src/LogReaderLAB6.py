@@ -1,8 +1,4 @@
-import os
-
-
 def read_log(filename):
-
     log_dict = {}
 
     with open(filename, "r") as file:
@@ -100,8 +96,6 @@ def run():
     print("Non-existent resources:")
     for request in non_existent(data):
         print(request)
-
-    # print(data)
 
 
 if __name__ == "__main__":
