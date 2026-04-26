@@ -11,10 +11,12 @@ def read_log(filename):
             parts = line.split()
 
             ip = parts[0]
-            request = parts[5] + " " + parts[6] + " " + parts[7]
-            bytes = int(parts[8])
+            method = parts[4].replace('"', "")
+            path = parts[5]
+            request = method + " " + path
+            status = int(parts[7])
 
-            entry = {"request": request, "status": bytes}
+            entry = {"request": request, "status": status}
 
             if ip not in log_dict:
                 log_dict[ip] = []
@@ -46,24 +48,64 @@ def ip_find(data, most_active = True):
     return result
 
 
+def longest_request(data):
+    longest = ""
+    longest_ip = ""
+
+    for ip in data:
+        for entry in data[ip]:
+            request = entry["request"]
+
+            if len(request) > len(longest):
+                longest = request
+                longest_ip = ip
+
+    return longest_ip, longest
+
+
+def non_existent(data):
+    result = []
+
+    for ip in data:
+        for entry in data[ip]:
+            if entry["status"] == 404:
+                request = entry["request"]
+
+                if request not in result:
+                    result.append(request)
+
+    return result
+
     
 
 
 def run():
-    data = read_log("src/lab04_log.txt")
+    data = read_log("lab04_log.txt")
 
-    ip_request_number(192.168, data)
-    
+    example_ip = "192.168.1.10"
+    print("Requests from", example_ip + ":", len(data.get(example_ip, [])))
+
     MostActiveIP = ip_find(data)
     LeastActiveIP = ip_find(data, False)
-    print("most active IPs: ")
+
+    print("Most active IPs:")
     for ip in MostActiveIP:
-        print (ip)
+        print(ip)
 
-    print("Least active IPs: ")
+    print("Least active IPs:")
     for ip in LeastActiveIP:
-        print (ip)
+        print(ip)
 
-    print(data)
+    longest_ip, request = longest_request(data)
+    print("Longest request:")
+    print(longest_ip, request)
 
-run()
+    print("Non-existent resources:")
+    for request in non_existent(data):
+        print(request)
+
+    #print(data)
+
+
+if __name__ == "__main__":
+    run()
