@@ -1,9 +1,8 @@
 import os
 
 
-
 def read_log(filename):
-  
+
     log_dict = {}
 
     with open(filename, "r") as file:
@@ -30,8 +29,8 @@ def ip_request_number(ip_address, data):
     if ip_address in data:
         return len(data(ip_address))
 
-        
-def ip_find(data, most_active = True):
+
+def ip_find(data, most_active=True):
     count = {}
     for ip in data:
         count[ip] = len(data[ip])
@@ -40,8 +39,8 @@ def ip_find(data, most_active = True):
         value = max(count.values())
     if not most_active:
         value = min(count.values())
-    
-    result= []
+
+    result = []
     for ip in count:
         if count[ip] == value:
             result.append(ip)
@@ -76,8 +75,6 @@ def non_existent(data):
 
     return result
 
-    
-
 
 def run():
     data = read_log("lab04_log.txt")
@@ -104,7 +101,7 @@ def run():
     for request in non_existent(data):
         print(request)
 
-    #print(data)
+    # print(data)
 
 
 if __name__ == "__main__":
