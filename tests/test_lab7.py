@@ -1,6 +1,6 @@
 import pytest
 
-from src.lab7 import HTTPRequest, reqstr2obj
+from lab7 import HTTPRequest, reqstr2obj
 
 
 def test_reqstr2obj_raises_type_error_for_non_string():
