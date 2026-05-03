@@ -20,8 +20,13 @@ def reqstr2obj(request_string):
 
     if not request_splitted[0] in possible_request_types:
         raise TypeError("request_type is nonexistent")
+    if not request_splitted[1].startswith('/'):
+     raise TypeError("resource_path should start with /")
 
     if not request_splitted[2] in possible_http_protocols:
         raise TypeError("http_protocol is nonexistent")
 
     return HTTPRequest(*request_splitted) # sorry for this gross line
+
+
+

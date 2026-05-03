@@ -46,3 +46,8 @@ def test_6():
     for i in test_strings:
         with pytest.raises(TypeError):
             reqstr2obj(i)
+def test_8():
+    test_strings = ["GET index HTTP1.1", "POST index.html HTTP2", "DELETE index.php HTTP3", "CONNECT home/index HTTP3"]
+    for i in test_strings:
+        with pytest.raises(TypeError):
+            reqstr2obj(i)
