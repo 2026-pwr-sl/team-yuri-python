@@ -80,8 +80,8 @@ logging.basicConfig(
 
 logging.info("Logging level set to %s", logging.getLevelName(log_level))
 
-
-assert lines > 0
+# helps detect invalid line values during debugging
+assert lines > 0, "lines must be greater than 0"
 
 
 def read_log(filename):
