@@ -179,6 +179,18 @@ def non_existent(data):
 
     return result
 
+def print_requests_by_method(data, method, lines):
+    count = 0
+    for ip in data:
+        for entry in data[ip]:
+            request = entry["request"]
+            if request.startswith(method):
+
+                print(ip, request, "status:", entry["status"])
+                count += 1
+                if count % lines == 0:
+                    input("Press Enter to continue...")
+
 
 def run():
     data = read_log(log_file)
@@ -204,7 +216,7 @@ def run():
     print("Non-existent resources:")
     for request in non_existent(data):
         print(request)
-
+    print_requests_by_method(data, method, lines)
 
 if __name__ == "__main__":
 
