@@ -1,0 +1,7 @@
+{
+    "log_file": "d",
+    "logging_level": "INFO",
+    "lines": 4,
+    "ip_address": "127.0.0.1",
+    "method": "GET"
+}
