@@ -4,7 +4,7 @@ import os
 
 
 default_config = {
-    "log_file" : "log.txt",
+    "log_file" : os.path.join('src', "lab04_log.txt"),
     "ip_address" : "127.0.0.1",
     "logging_level" : "INFO",
     "lines" : 4,
