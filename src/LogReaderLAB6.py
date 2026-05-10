@@ -3,7 +3,6 @@ import logging
 import os
 
 
-
 default_config = {
     "log_file" : "log.txt",
     "ip_address" : "127.0.0.1",
@@ -15,7 +14,7 @@ default_config = {
 
 try:
     with open("config.json", "r", encoding = "utf-8") as file:
-        config =json.load(file)
+        config = json.load(file)
 except FileNotFoundError:
     logging.info("File not found!")
     config = default_config
@@ -23,33 +22,42 @@ except FileNotFoundError:
 except json.JSONDecodeError:
     logging.error("JSON decode error")
     exit()
+
+
 try:
     logging_level = config["logging_level"]
 except KeyError:
     logging.info("Missing logging level, using default...")
     logging_level = default_config["logging_level"]
-    
+
 
 try:
     lines = config["lines"]
 except KeyError:
     logging.info("Missing lines, using default...")
     lines = default_config["lines"]
+
+
 try:
     log_file = config["log_file"]
 except KeyError:
     logging.info("missing log file")
-    log_file = "Lab04_log.txt"
+    log_file = default_config["log_file"]
+
+
 try:
     ip_address = config["ip_address"]
 except KeyError:
     logging.info("Missing IP address, setting default...")
     ip_address = default_config["ip_address"]
+
+
 try:
     method = config["method"]
 except KeyError:
     logging.info("Wrong method used, using default...")
     method = default_config["method"]
+
 
 config["logging_level"] = logging_level
 config["lines"] = lines
@@ -57,34 +65,52 @@ config["log_file"] = log_file
 config["ip_address"] = ip_address
 config["method"] = method
 
+
 with open("config.json", "w", encoding="utf-8") as file:
     json.dump(config, file, indent=4)
 
-logging.basicConfig(level=logging_level)
-assert lines > 0
 
+
+log_level = getattr(logging, str(logging_level).upper(), logging.INFO)
+
+logging.basicConfig(
+    level=log_level,
+    format="%(levelname)s: %(message)s"
+)
+
+logging.info("Logging level set to %s", logging.getLevelName(log_level))
+
+
+assert lines > 0
 
 
 def read_log(filename):
 
     log_dict = {}
 
-    with open(filename, "r") as file:
-        for line in file:
-            parts = line.split()
+    try:
+        with open(filename, "r", encoding="utf-8") as file:
+            for line in file:
+                parts = line.split()
 
-            ip = parts[0]
-            method = parts[4].replace('"', "")
-            path = parts[5]
-            request = method + " " + path
-            status = int(parts[7])
+                ip = parts[0]
+                method = parts[4].replace('"', "")
+                path = parts[5]
+                request = method + " " + path
+                status = int(parts[7])
 
-            entry = {"request": request, "status": status}
+                entry = {"request": request, "status": status}
 
-            if ip not in log_dict:
-                log_dict[ip] = []
+                if ip not in log_dict:
+                    log_dict[ip] = []
 
-            log_dict[ip].append(entry)
+                log_dict[ip].append(entry)
+
+    except FileNotFoundError:
+        logging.error("Log file does not exist: %s", filename)
+        print("Error: log file '" + filename + "' does not exist.")
+        print("Please check the log_file value in config.json.")
+        exit()
 
     return log_dict
 
@@ -92,6 +118,20 @@ def read_log(filename):
 def ip_request_number(ip_address, data):
     if ip_address in data:
         return len(data[ip_address])
+
+
+
+def print_requests_from_ip(ip_address, data):
+    logging.info("Printing requests from IP address: %s", ip_address)
+
+    if ip_address not in data:
+        print("No requests found from", ip_address)
+        return
+
+    print("Requests from", ip_address + ":")
+
+    for entry in data[ip_address]:
+        print(entry["request"], "status:", entry["status"])
 
 
 def ip_find(data, most_active=True):
@@ -141,10 +181,10 @@ def non_existent(data):
 
 
 def run():
-    data = read_log("src/lab04_log.txt")
+    data = read_log(log_file)
 
-    example_ip = "192.168.1.10"
-    print("Requests from", example_ip + ":", len(data.get(example_ip, [])))
+    print("Requests from", ip_address + ":", len(data.get(ip_address, [])))
+    print_requests_from_ip(ip_address, data)
 
     MostActiveIP = ip_find(data)
     LeastActiveIP = ip_find(data, False)
@@ -167,5 +207,5 @@ def run():
 
 
 if __name__ == "__main__":
-   
+
     run()
