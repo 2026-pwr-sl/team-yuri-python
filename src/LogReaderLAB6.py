@@ -1,4 +1,72 @@
+import json
+import logging
+import os
+
+
+
+default_config = {
+    "log_file" : "log.txt",
+    "ip_address" : "127.0.0.1",
+    "logging_level" : "INFO",
+    "lines" : 4,
+    "method" : "GET"
+}
+
+
+try:
+    with open("config.json", "r", encoding = "utf-8") as file:
+        config =json.load(file)
+except FileNotFoundError:
+    logging.info("File not found!")
+    config = default_config
+
+except json.JSONDecodeError:
+    logging.error("JSON decode error")
+    exit()
+try:
+    logging_level = config["logging_level"]
+except KeyError:
+    logging.info("Missing logging level, using default...")
+    logging_level = default_config["logging_level"]
+    
+
+try:
+    lines = config["lines"]
+except KeyError:
+    logging.info("Missing lines, using default...")
+    lines = default_config["lines"]
+try:
+    log_file = config["log_file"]
+except KeyError:
+    logging.info("missing log file")
+    log_file = "Lab04_log.txt"
+try:
+    ip_address = config["ip_address"]
+except KeyError:
+    logging.info("Missing IP address, setting default...")
+    ip_address = default_config["ip_address"]
+try:
+    method = config["method"]
+except KeyError:
+    logging.info("Wrong method used, using default...")
+    method = default_config["method"]
+
+config["logging_level"] = logging_level
+config["lines"] = lines
+config["log_file"] = log_file
+config["ip_address"] = ip_address
+config["method"] = method
+
+with open("config.json", "w", encoding="utf-8") as file:
+    json.dump(config, file, indent=4)
+
+logging.basicConfig(level=logging_level)
+assert lines > 0
+
+
+
 def read_log(filename):
+
     log_dict = {}
 
     with open(filename, "r") as file:
@@ -23,7 +91,7 @@ def read_log(filename):
 
 def ip_request_number(ip_address, data):
     if ip_address in data:
-        return len(data(ip_address))
+        return len(data[ip_address])
 
 
 def ip_find(data, most_active=True):
@@ -73,7 +141,7 @@ def non_existent(data):
 
 
 def run():
-    data = read_log("lab04_log.txt")
+    data = read_log("src/lab04_log.txt")
 
     example_ip = "192.168.1.10"
     print("Requests from", example_ip + ":", len(data.get(example_ip, [])))
@@ -99,4 +167,5 @@ def run():
 
 
 if __name__ == "__main__":
+   
     run()
