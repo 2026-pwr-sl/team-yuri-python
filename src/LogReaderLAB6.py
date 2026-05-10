@@ -4,7 +4,7 @@ import os
 
 
 default_config = {
-    "log_file" : "log.txt",
+    "log_file" : os.path.join('src', "lab04_log.txt"),
     "ip_address" : "127.0.0.1",
     "logging_level" : "INFO",
     "lines" : 4,
@@ -85,7 +85,6 @@ assert lines > 0
 
 
 def read_log(filename):
-
     log_dict = {}
 
     try:
@@ -180,17 +179,20 @@ def non_existent(data):
     return result
 
 def print_requests_by_method(data, method, lines):
+    def clear():
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+    print('\nfiltering requests by method...')
     count = 0
     for ip in data:
         for entry in data[ip]:
             request = entry["request"]
             if request.startswith(method):
-
                 print(ip, request, "status:", entry["status"])
                 count += 1
                 if count % lines == 0:
                     input("Press Enter to continue...")
-
+                    clear()
 
 def run():
     data = read_log(log_file)
@@ -219,5 +221,4 @@ def run():
     print_requests_by_method(data, method, lines)
 
 if __name__ == "__main__":
-
     run()
