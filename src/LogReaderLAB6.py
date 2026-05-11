@@ -2,18 +2,18 @@ import json
 import logging
 import os
 
-
 default_config = {
-    "log_file" : os.path.join('src', "lab04_log.txt"),
-    "ip_address" : "127.0.0.1",
-    "logging_level" : "INFO",
-    "lines" : 4,
-    "method" : "GET"
+    "log_file": os.path.join("src", "lab04_log.txt"),
+    "ip_address": "127.0.0.1",
+    "logging_level": "INFO",
+    "lines": 4,
+    "method": "GET",
+    "status_code": 200
 }
 
 
 try:
-    with open("config.json", "r", encoding = "utf-8") as file:
+    with open("config.json", "r", encoding="utf-8") as file:
         config = json.load(file)
 except FileNotFoundError:
     logging.info("File not found!")
@@ -58,31 +58,36 @@ except KeyError:
     logging.info("Wrong method used, using default...")
     method = default_config["method"]
 
+try:
+    status_code = config["status_code"]
+except KeyError:
+    logging.info("Missing status code, using default...")
+    status_code = default_config["status_code"]
 
 config["logging_level"] = logging_level
 config["lines"] = lines
 config["log_file"] = log_file
 config["ip_address"] = ip_address
 config["method"] = method
+config["status_code"] = status_code
 
 
 with open("config.json", "w", encoding="utf-8") as file:
     json.dump(config, file, indent=4)
 
 
-
 log_level = getattr(logging, str(logging_level).upper(), logging.INFO)
 
-logging.basicConfig(
-    level=log_level,
-    format="%(levelname)s: %(message)s"
-)
+logging.basicConfig(level=log_level, format="%(levelname)s: %(message)s")
 
 logging.info("Logging level set to %s", logging.getLevelName(log_level))
 
 # helps detect invalid line values during debugging
 assert lines > 0, "lines must be greater than 0"
 
+
+def clear():
+    os.system("cls" if os.name == "nt" else "clear")
 
 def read_log(filename):
     log_dict = {}
@@ -117,7 +122,6 @@ def read_log(filename):
 def ip_request_number(ip_address, data):
     if ip_address in data:
         return len(data[ip_address])
-
 
 
 def print_requests_from_ip(ip_address, data):
@@ -178,11 +182,10 @@ def non_existent(data):
 
     return result
 
-def print_requests_by_method(data, method, lines):
-    def clear():
-        os.system('cls' if os.name == 'nt' else 'clear')
 
-    print('\nfiltering requests by method...')
+def print_requests_by_method(data, method, lines):
+    input("filtering requests by method...")
+    clear()
     count = 0
     for ip in data:
         for entry in data[ip]:
@@ -194,7 +197,22 @@ def print_requests_by_method(data, method, lines):
                     input("Press Enter to continue...")
                     clear()
 
-def run():
+
+def print_requests_by_status(data, status_code, lines):
+    input("Filtering requests by status code...")
+    clear()
+    count = 0
+    for ip in data:
+        for entry in data[ip]:
+            if entry["status"] == status_code:
+                print(ip, entry["request"], "status:", entry["status"])
+                count += 1
+                if count % lines == 0:
+                    input("Press Enter to continue...")
+                    clear()
+
+
+if __name__ == "__main__":
     data = read_log(log_file)
 
     print("Requests from", ip_address + ":", len(data.get(ip_address, [])))
@@ -219,6 +237,4 @@ def run():
     for request in non_existent(data):
         print(request)
     print_requests_by_method(data, method, lines)
-
-if __name__ == "__main__":
-    run()
+    print_requests_by_status(data, status_code, lines)
