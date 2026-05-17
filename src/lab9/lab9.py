@@ -35,6 +35,7 @@ class LogEntry:
     request_header: str
     status_code: int
     response_size: int
+    browser: str
 
 def configure_logging(config_settings):
     """Configure application logging based on config settings."""
@@ -122,13 +123,15 @@ def read_log_file(log_filename):
 
 def parse_log_line(line):
     """Parse a single log line using regular expressions."""
+    
     log_regex = re.compile(
         r"^(\d{1,3}(?:\.\d{1,3}){3}) "
         r"- - "
         r"\[([^\]]+)\] "
         r'"([^"]+)" '
         r"(\d{3}) "
-        r"(\d+)$"
+        r"(\d+) "
+        r'"([^"]+)"$'
     )
 
     match = log_regex.match(line.strip())
@@ -142,13 +145,15 @@ def parse_log_line(line):
     request_header = match.group(3)
     status_code = int(match.group(4))
     response_size = int(match.group(5))
+    browser = match.group(6)
 
     return LogEntry(
         ip_address=ip_address,
         timestamp=timestamp,
         request_header=request_header,
         status_code=status_code,
-        response_size=response_size
+        response_size=response_size,
+        browser=browser
     )
 
 def parse_all_log_lines(log_lines):
@@ -199,6 +204,49 @@ def print_requests_from_subnet(log_entries, display_settings):
 
     print(f"Total matching requests: {matched_count}")
 
+
+def print_requests_from_browser(log_entries, display_settings):
+
+    browser_name = display_settings.get("browser", "Firefox")
+
+    pattern = re.compile(browser_name, re.IGNORECASE)
+
+    print(f"Requests from browser: {browser_name}")
+
+    for entry in log_entries:
+
+        if pattern.search(entry.browser):
+
+            print(entry)
+
+
+def print_total_bytes_by_request_type(log_entries, filter_settings, display_settings):
+
+    request_type = filter_settings.get("request_type", "GET")
+
+    separator = display_settings.get("separator", "|")
+
+    total_bytes = 0
+
+    request_regex = re.compile(
+        r"^(GET|POST|PUT|DELETE|PATCH|HEAD|OPTIONS|CONNECT)"
+    )
+
+    for entry in log_entries:
+
+        match = request_regex.search(entry.request_header)
+
+        if match:
+
+            current_request_type = match.group(1)
+
+            if current_request_type == request_type:
+
+                total_bytes += entry.response_size
+
+    print(f"{request_type}{separator}{total_bytes}")
+
+
 def main():
     display_settings, log_filename, filter_settings = read_config("9.config")
 
@@ -220,6 +268,10 @@ def main():
     print_requests_from_subnet(log_entries, display_settings)
 
     logging.info("Subnet filtering completed successfully.")
+
+
+    print_total_bytes_by_request_type(log_entries,filter_settings,display_settings)
+    print_requests_from_browser(log_entries, display_settings)
 
 if __name__ == "__main__":
     main()
