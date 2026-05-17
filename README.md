@@ -68,6 +68,7 @@ Each time it is called, it prints again , leading to duplicated/unnecessary outp
 - https://docs.python.org/3/library/datetime.html
 
 ## first pycodestyle run
+'''
 - src\Lab04.py:40:60: W292 no newline at end of file
 - src\LogReaderLAB6.py:92:1: E302 expected 2 blank lines, found 1
 - src\config.py:18:5: E303 too many blank lines (2)
@@ -104,8 +105,10 @@ Each time it is called, it prints again , leading to duplicated/unnecessary outp
 - src\lab9\lab9.py:273:80: E501 line too long (83 > 79 characters)
 - src\lab9\lab9.py:276:1: E305 expected 2 blank lines after class or function definition, found 1
 - src\lab9\lab9.py:277:11: W292 no newline at end of file
+'''
 
 ## second pycodestyle run
+'''
 - src\lab2-3.py:116:80: E501 line too long (84 > 79 characters)
 - src\lab2-3.py:156:80: E501 line too long (88 > 79 characters)
 - src\lab7.py:18:80: E501 line too long (109 > 79 characters)
@@ -117,3 +120,4 @@ Each time it is called, it prints again , leading to duplicated/unnecessary outp
 - src\lab9\lab9.py:107:80: E501 line too long (80 > 79 characters)
 - src\lab9\lab9.py:223:80: E501 line too long (86 > 79 characters)
 - src\lab9\lab9.py:273:80: E501 line too long (83 > 79 characters)
+'''
