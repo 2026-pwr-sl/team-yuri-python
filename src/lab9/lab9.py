@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import ipaddress
 import logging
 import os
 import re
@@ -22,6 +23,9 @@ DEFAULT_CONFIG_SETTINGS = {
 DEFAULT_FILTER_SETTINGS = {
     "request_type": "GET",
 }
+
+STUDENT_INDEX = 224538
+SUBNET_IP = "185.23.0.0"
 
 @dataclass
 class LogEntry:
@@ -159,6 +163,42 @@ def parse_all_log_lines(log_lines):
 
     return log_entries
 
+def get_mask_length(student_index):
+    """Calculate IP mask length from student index."""
+    return student_index % 16 + 8
+
+
+def ip_belongs_to_subnet(ip_address, subnet_ip, mask_length):
+    """Check if an IP address belongs to a subnet."""
+    subnet = ipaddress.ip_network(f"{subnet_ip}/{mask_length}", strict=False)
+    ip = ipaddress.ip_address(ip_address)
+
+    return ip in subnet
+
+
+def print_requests_from_subnet(log_entries, display_settings):
+    """Print requests sent from the chosen IP subnet."""
+    mask_length = get_mask_length(STUDENT_INDEX)
+    lines_per_page = int(display_settings.get("lines_per_page", 10))
+
+    print(f"Chosen subnet: {SUBNET_IP}/{mask_length}")
+    print("Requests from this subnet:")
+
+    displayed_count = 0
+    matched_count = 0
+
+    for entry in log_entries:
+        if ip_belongs_to_subnet(entry.ip_address, SUBNET_IP, mask_length):
+            print(entry)
+            displayed_count += 1
+            matched_count += 1
+
+            if displayed_count == lines_per_page:
+                input("Press Enter to display more...")
+                displayed_count = 0
+
+    print(f"Total matching requests: {matched_count}")
+
 def main():
     display_settings, log_filename, filter_settings = read_config("9.config")
 
@@ -177,14 +217,9 @@ def main():
     print("All log lines parsed.")
     print(f"Number of parsed log entries: {len(log_entries)}")
 
-    if log_entries:
-        print("First parsed entry:")
-        print(log_entries[0])
+    print_requests_from_subnet(log_entries, display_settings)
 
-        print("Last parsed entry:")
-        print(log_entries[-1])
-
-    logging.info("All log lines parsed successfully.")
+    logging.info("Subnet filtering completed successfully.")
 
 if __name__ == "__main__":
     main()
