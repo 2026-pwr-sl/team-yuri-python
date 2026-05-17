@@ -1,0 +1,4 @@
+2026-05-17 14:42:06,843 - INFO - Configuration loaded successfully.
+2026-05-17 14:48:38,612 - INFO - Configuration and log file loaded successfully.
+2026-05-17 14:51:50,468 - INFO - Single log line parsed successfully.
+2026-05-17 14:54:31,646 - INFO - All log lines parsed successfully.
