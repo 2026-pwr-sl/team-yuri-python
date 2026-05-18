@@ -1,10 +1,9 @@
-from dataclasses import dataclass
 import ipaddress
 import logging
 import os
 import re
 import sys
-
+from dataclasses import dataclass
 
 DEFAULT_DISPLAY_SETTINGS = {
     "lines_per_page": "10",
@@ -27,9 +26,11 @@ DEFAULT_FILTER_SETTINGS = {
 STUDENT_INDEX = 224538
 SUBNET_IP = "185.23.0.0"
 
+
 @dataclass
 class LogEntry:
     """Single parsed log entry."""
+
     ip_address: str
     timestamp: str
     request_header: str
@@ -37,22 +38,18 @@ class LogEntry:
     response_size: int
     browser: str
 
+
 def configure_logging(config_settings):
     """Configure application logging based on config settings."""
     log_level_name = config_settings.get("log_level", "INFO")
     log_file = config_settings.get("log_file", "processing_log.txt")
     log_format = config_settings.get(
-        "log_format",
-        "%(asctime)s - %(levelname)s - %(message)s"
+        "log_format", "%(asctime)s - %(levelname)s - %(message)s"
     )
 
     log_level = getattr(logging, log_level_name.upper(), logging.INFO)
 
-    logging.basicConfig(
-        filename=log_file,
-        level=log_level,
-        format=log_format
-    )
+    logging.basicConfig(filename=log_file, level=log_level, format=log_format)
 
 
 def read_config(config_path):
@@ -104,11 +101,16 @@ def read_config(config_path):
                         current_section
                     )
             else:
-                logging.warning("Invalid config line %s: %s", line_number, line)
+                logging.warning(
+                    "Invalid config line %s: %s",
+                    line_number,
+                    line
+                )
 
     configure_logging(config_settings)
 
     return display_settings, log_filename, filter_settings
+
 
 def read_log_file(log_filename):
     """Read log file content into memory."""
@@ -121,9 +123,10 @@ def read_log_file(log_filename):
 
     return log_lines
 
+
 def parse_log_line(line):
     """Parse a single log line using regular expressions."""
-    
+
     log_regex = re.compile(
         r"^(\d{1,3}(?:\.\d{1,3}){3}) "
         r"- - "
@@ -153,8 +156,9 @@ def parse_log_line(line):
         request_header=request_header,
         status_code=status_code,
         response_size=response_size,
-        browser=browser
+        browser=browser,
     )
+
 
 def parse_all_log_lines(log_lines):
     """Parse all log lines and return a list of LogEntry objects."""
@@ -167,6 +171,7 @@ def parse_all_log_lines(log_lines):
             log_entries.append(entry)
 
     return log_entries
+
 
 def get_mask_length(student_index):
     """Calculate IP mask length from student index."""
@@ -206,7 +211,6 @@ def print_requests_from_subnet(log_entries, display_settings):
 
 
 def print_requests_from_browser(log_entries, display_settings):
-
     browser_name = display_settings.get("browser", "Firefox")
 
     pattern = re.compile(browser_name, re.IGNORECASE)
@@ -214,16 +218,12 @@ def print_requests_from_browser(log_entries, display_settings):
     print(f"Requests from browser: {browser_name}")
 
     for entry in log_entries:
-
         if pattern.search(entry.browser):
-
             print(entry)
 
 
-def print_total_bytes_by_request_type(log_entries, filter_settings, display_settings):
-
+def print_bytes_request_type(log_entries, filter_settings, display_settings):
     request_type = filter_settings.get("request_type", "GET")
-
     separator = display_settings.get("separator", "|")
 
     total_bytes = 0
@@ -233,15 +233,12 @@ def print_total_bytes_by_request_type(log_entries, filter_settings, display_sett
     )
 
     for entry in log_entries:
-
         match = request_regex.search(entry.request_header)
 
         if match:
-
             current_request_type = match.group(1)
 
             if current_request_type == request_type:
-
                 total_bytes += entry.response_size
 
     print(f"{request_type}{separator}{total_bytes}")
@@ -269,9 +266,9 @@ def main():
 
     logging.info("Subnet filtering completed successfully.")
 
-
-    print_total_bytes_by_request_type(log_entries,filter_settings,display_settings)
+    print_bytes_request_type(log_entries, filter_settings, display_settings)
     print_requests_from_browser(log_entries, display_settings)
+
 
 if __name__ == "__main__":
     main()
