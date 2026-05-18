@@ -69,27 +69,6 @@ Each time it is called, it prints again , leading to duplicated/unnecessary outp
 
 ## first pycodestyle run
 ```
-- src\Lab04.py:40:60: W292 no newline at end of file
-- src\LogReaderLAB6.py:92:1: E302 expected 2 blank lines, found 1
-- src\config.py:18:5: E303 too many blank lines (2)
-- src\config.py:19:6: E111 indentation is not a multiple of 4
-- src\config.py:22:1: E305 expected 2 blank lines after class or function definition, found 1   
-- src\config.py:23:4: E111 indentation is not a multiple of 4
-- src\config.py:23:17: W292 no newline at end of file
-- src\lab2-3.py:116:80: E501 line too long (84 > 79 characters)
-- src\lab2-3.py:156:80: E501 line too long (88 > 79 characters)
-- src\lab7.py:13:53: E225 missing whitespace around operator
-- src\lab7.py:18:80: E501 line too long (109 > 79 characters)
-- src\lab7.py:19:80: E501 line too long (81 > 79 characters)
-- src\lab7.py:24:6: E111 indentation is not a multiple of 4
-- src\lab7.py:29:42: E261 at least two spaces before inline comment
-- src\lab7.py:32:1: W391 blank line at end of file
-- src\log_entry.py:2:80: E501 line too long (95 > 79 characters)
-- src\log_entry.py:12:80: E501 line too long (131 > 79 characters)
-- src\menu.py:9:1: E302 expected 2 blank lines, found 1
-- src\parser.py:61:80: E501 line too long (91 > 79 characters)
-- src\parser.py:61:92: W292 no newline at end of file
-- src\utils.py:29:80: E501 line too long (83 > 79 characters)
 - src\lab9\lab9.py:30:1: E302 expected 2 blank lines, found 1
 - src\lab9\lab9.py:40:1: E302 expected 2 blank lines, found 1
 - src\lab9\lab9.py:107:80: E501 line too long (80 > 79 characters)
@@ -109,15 +88,5 @@ Each time it is called, it prints again , leading to duplicated/unnecessary outp
 
 ## second pycodestyle run
 ```
-- src\lab2-3.py:116:80: E501 line too long (84 > 79 characters)
-- src\lab2-3.py:156:80: E501 line too long (88 > 79 characters)
-- src\lab7.py:18:80: E501 line too long (109 > 79 characters)
-- src\lab7.py:19:80: E501 line too long (81 > 79 characters)
-- src\log_entry.py:2:80: E501 line too long (95 > 79 characters)
-- src\log_entry.py:12:80: E501 line too long (131 > 79 characters)
-- src\parser.py:61:80: E501 line too long (91 > 79 characters)
-- src\utils.py:29:80: E501 line too long (83 > 79 characters)
-- src\lab9\lab9.py:107:80: E501 line too long (80 > 79 characters)
-- src\lab9\lab9.py:223:80: E501 line too long (86 > 79 characters)
-- src\lab9\lab9.py:273:80: E501 line too long (83 > 79 characters)
+All fixed :)
 ```
