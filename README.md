@@ -66,3 +66,27 @@ Each time it is called, it prints again , leading to duplicated/unnecessary outp
 - https://docs.python.org/3/library/ipaddress.html
 ### datetime
 - https://docs.python.org/3/library/datetime.html
+
+## first pycodestyle run
+```
+- src\lab9\lab9.py:30:1: E302 expected 2 blank lines, found 1
+- src\lab9\lab9.py:40:1: E302 expected 2 blank lines, found 1
+- src\lab9\lab9.py:107:80: E501 line too long (80 > 79 characters)
+- src\lab9\lab9.py:113:1: E302 expected 2 blank lines, found 1
+- src\lab9\lab9.py:124:1: E302 expected 2 blank lines, found 1
+- src\lab9\lab9.py:126:1: W293 blank line contains whitespace
+- src\lab9\lab9.py:159:1: E302 expected 2 blank lines, found 1
+- src\lab9\lab9.py:171:1: E302 expected 2 blank lines, found 1
+- src\lab9\lab9.py:223:80: E501 line too long (86 > 79 characters)
+- src\lab9\lab9.py:273:5: E303 too many blank lines (2)
+- src\lab9\lab9.py:273:50: E231 missing whitespace after ','
+- src\lab9\lab9.py:273:66: E231 missing whitespace after ','
+- src\lab9\lab9.py:273:80: E501 line too long (83 > 79 characters)
+- src\lab9\lab9.py:276:1: E305 expected 2 blank lines after class or function definition, found 1
+- src\lab9\lab9.py:277:11: W292 no newline at end of file
+```
+
+## second pycodestyle run
+```
+All fixed :)
+```
