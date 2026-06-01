@@ -93,3 +93,64 @@ All fixed :)
 
 ## data link
 https://www.kaggle.com/datasets/gregorut/videogamesales?resource=download
+
+## Lab10 Dataset
+
+Dataset: Video Game Sales
+
+The dataset contains information about video game sales. Each row represents one video game and includes the game's name, platform, release year, genre, publisher, regional sales, and global sales.
+
+Dataset link:
+https://www.kaggle.com/datasets/gregorut/videogamesales?resource=download
+
+## Lab10 Environment Variables
+
+The application uses a `.env` file to configure selected analysis options.
+
+### `STAT_COLUMN`
+
+Defines which numeric column is used for the average calculation.
+
+Possible values:
+- `Global_Sales`
+- `NA_Sales`
+- `EU_Sales`
+- `JP_Sales`
+- `Other_Sales`
+
+Example:
+
+```env
+STAT_COLUMN=Global_Sales
+```
+
+### `GROUP_BY_COLUMN`
+
+Defines which column is used to group the data for aggregation.
+
+Possible values:
+- `Genre`
+- `Platform`
+- `Publisher`
+- `Year`
+
+Example:
+
+```env
+GROUP_BY_COLUMN=Genre
+```
+
+Example `.env` file:
+
+```env
+STAT_COLUMN=Global_Sales
+GROUP_BY_COLUMN=Genre
+```
+
+## Lab10 How to Run
+
+From the `src` folder:
+
+```bash
+python lab10.py vgsales.csv
+```
