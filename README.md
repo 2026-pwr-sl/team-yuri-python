@@ -90,3 +90,6 @@ lab9.py:277:11: W292 no newline at end of file
 ```
 All fixed :)
 ```
+
+## data link
+https://www.kaggle.com/datasets/gregorut/videogamesales?resource=download
